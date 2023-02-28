@@ -83,7 +83,7 @@ export default function EncryptForm() {
           <TextArea
             name="message"
             type="text"
-            label="Message"
+            label="Plain Text"
             placeholder="Enter message"
             rows={3}
           />

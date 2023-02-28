@@ -73,8 +73,8 @@ export default function DecryptForm() {
             <TextArea
               name="message"
               type="text"
-              label="Message"
-              placeholder="Enter message"
+              label="Cipher Text"
+              placeholder="Enter cipher text"
               rows={3}
             />
             <div className="ml-auto w-full sm:w-fit">
