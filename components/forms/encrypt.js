@@ -11,7 +11,7 @@ export default function EncryptForm() {
 
   const initialValues = {
     mobile_number: "254714322405",
-    email: "justina92@ethereal.email",
+    email: "vortechstudio@gmail.com",
     key: "123456",
     message: "Hello world",
   };

@@ -1,5 +1,6 @@
-import emailjs from "@emailjs/browser";
 import crypto from "crypto";
+import nodemailer from "nodemailer";
+import axios from "axios";
 
 function encrypt(message, key) {
   const cipher = crypto.createCipher("des", key);
@@ -9,47 +10,56 @@ function encrypt(message, key) {
 }
 
 async function sendSMS(mobile_number, key) {
+  axios
+    .post(
+      process.env.NEXT_PUBLIC_SMS_ENDPOINT,
+      {
+        to: mobile_number,
+        message: key,
+      },
+      {
+        headers: { "api-key": process.env.NEXT_PUBLIC_SMS_API_KEY },
+      }
+    )
+    .then((response) => console.log(response))
+    .catch((error) => console.log(error));
+
   await fetch(process.env.NEXT_PUBLIC_SMS_ENDPOINT, {
     method: "POST",
     headers: {
       "api-key": process.env.NEXT_PUBLIC_SMS_API_KEY,
     },
     body: JSON.stringify({ to: mobile_number, message: key }),
-  }).catch((e) => console.log(e));
+  })
+    .then((res) => console.log(res))
+    .catch((e) => console.log(e));
 }
 
 async function sendEmail(email, message) {
-  const API_KEY = process.env.NEXT_PUBLIC_MAILJET_API_KEY;
-  const DOMAIN = "safinu.net";
+  let transporter = nodemailer.createTransport({
+    service: "gmail",
+    host: "smtp.gmail.com",
+    secure: false,
+    auth: {
+      user: process.env.NEXT_PUBLIC_EMAIL_TEST_USER,
+      pass: process.env.NEXT_PUBLIC_EMAIL_TEST_PASSWORD,
+    },
+  });
 
-  const formData = require("form-data");
-  const Mailgun = require("mailgun.js");
-
-  const mailgun = new Mailgun(formData);
-  const client = mailgun.client({ username: "api", key: API_KEY });
-
-  const messageData = {
-    from: "Admin <admin@samples.mailgun.org>",
+  await transporter.sendMail({
+    from: `"Secret Organization 👻" <${process.env.NEXT_PUBLIC_EMAIL_TEST_USER}>`,
     to: email,
     subject: "Secret Message",
     text: message,
-  };
-
-  await client.messages
-    .create(DOMAIN, messageData)
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+    html: `<b>${message}</b>`,
+  });
 }
 
 export default async function handler(req, res) {
   const { message, key, email, mobile_number } = req.body;
 
   const encryptedMessage = encrypt(message, key);
-  await sendEmail(email, message);
+  await sendEmail(email, encryptedMessage);
   await sendSMS(mobile_number, key);
 
   res.status(200).json({ message: encryptedMessage });
