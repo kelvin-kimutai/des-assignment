@@ -29,7 +29,14 @@ export default function EncryptForm() {
 
   const onSubmit = async (values, { setSubmitting }) => {
     try {
-      const response = await encryptMessage({ body: values });
+      const response = await encryptMessage({
+        body: {
+          mobile_number: values.mobile_number.trim(),
+          email: values.email.trim(),
+          key: values.key.trim(),
+          message: values.message.trim(),
+        },
+      });
       toast({
         description: response.message,
         status: "success",

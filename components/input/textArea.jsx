@@ -16,7 +16,7 @@ export default function TextArea({ label, ...props }) {
           meta.touched && meta.error
             ? "border-2 border-red-400 focus:border-red-400"
             : ""
-        } w-full rounded-md border border-gray-300 p-2  ring-0 placeholder:font-medium placeholder:text-[#CACACA] focus:border-2 focus:ring-0`}
+        } w-full rounded-md border border-gray-300 p-2  ring-0 placeholder:font-medium placeholder:text-gray-400 focus:border-2 focus:ring-0 dark:border-white dark:bg-transparent dark:text-white`}
       />
       <div className="text-red-400">
         {meta.touched && meta.error ? <span>{meta.error}</span> : null}

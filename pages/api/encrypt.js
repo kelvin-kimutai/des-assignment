@@ -56,11 +56,18 @@ async function sendEmail(email, message) {
 }
 
 export default async function handler(req, res) {
-  const { message, key, email, mobile_number } = req.body;
+  try {
+    const { message, key, email, mobile_number } = req.body;
 
-  const encryptedMessage = encrypt(message, key);
-  await sendEmail(email, encryptedMessage);
-  await sendSMS(mobile_number, key);
+    const encryptedMessage = encrypt(message, key);
+    await sendEmail(email, encryptedMessage);
+    await sendSMS(mobile_number, key);
 
-  res.status(200).json({ message: "Message has been encrypted" });
+    res.status(200).json({ message: "Message has been encrypted" });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .send({ message: error.message ?? "Could not encrypt message" });
+  }
 }

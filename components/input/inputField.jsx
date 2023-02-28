@@ -12,10 +12,12 @@ export default function InputField({ label, ...props }) {
           meta.touched && meta.error
             ? "border-2 border-red-400 focus:border-red-400"
             : ""
-        } w-full rounded-md border border-gray-300 text-sm  placeholder:text-[#CACACA] focus:border-2 focus:ring-0 sm:text-base`}
+        } w-full rounded-md border border-gray-300 dark:border-white bg-transparent text-sm  placeholder:text-gray-400 focus:border-2 focus:ring-0 sm:text-base dark:text-white autofill:bg-transparent`}
       />
       {meta.touched && meta.error && (
-        <span className="text-red-400">{meta.error}</span>
+        <div className="pt-1">
+          <span className="text-red-400">{meta.error}</span>
+        </div>
       )}
     </div>
   );

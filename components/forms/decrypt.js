@@ -25,7 +25,12 @@ export default function DecryptForm() {
 
   const onSubmit = async (values, { setSubmitting }) => {
     try {
-      const response = await decryptMessage({ body: values });
+      const response = await decryptMessage({
+        body: {
+          message: values.message.trim(),
+          key: values.key.trim(),
+        },
+      });
       toast({
         description: "Message has been decrypted",
         status: "success",
