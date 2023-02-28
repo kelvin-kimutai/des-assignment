@@ -6,11 +6,11 @@ export async function encryptMessage({ body }) {
     method: "POST",
     body,
   });
+  const decodedResponse = await response.json();
   if (response.ok) {
-    const decodedResponse = await response.json();
     return decodedResponse;
   }
-  throw { code: response.status, message: "Failed to encrypt message" };
+  throw { code: response.status, message: decodedResponse.message };
 }
 
 export async function decryptMessage({ body }) {
@@ -19,8 +19,8 @@ export async function decryptMessage({ body }) {
     method: "POST",
     body,
   });
+  const decodedResponse = await response.json();
   if (response.ok) {
-    const decodedResponse = await response.json();
     return decodedResponse;
   }
   throw { code: response.status, message: "Failed to decrypt message" };
