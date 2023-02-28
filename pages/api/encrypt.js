@@ -1,5 +1,12 @@
 import nodemailer from "nodemailer";
-import crypto from "crypto-js";
+import crypto from "crypto";
+
+function encrypt(message, key) {
+  const cipher = crypto.createCipher("des", key);
+  let ciphertext = cipher.update(message, "utf8", "hex");
+  ciphertext += cipher.final("hex");
+  return ciphertext;
+}
 
 export default async function handler(req, res) {
   const { message, key, email, mobile_number } = req.body;
@@ -20,7 +27,7 @@ export default async function handler(req, res) {
   });
 
   // encrypt plain text using DES algorithm
-  const encryptedMessage = crypto.DES.encrypt(message, key).toString();
+  const encryptedMessage = encrypt(message, key);
 
   // send mail with defined transport object
   let info = await transporter.sendMail({
