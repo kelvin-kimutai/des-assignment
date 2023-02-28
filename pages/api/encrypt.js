@@ -20,7 +20,7 @@ async function sendSMS(mobile_number, key) {
 
 async function sendEmail(email, message) {
   const API_KEY = process.env.NEXT_PUBLIC_MAILJET_API_KEY;
-  const DOMAIN = "YOUR_DOMAIN_NAME";
+  const DOMAIN = "safinu.net";
 
   const formData = require("form-data");
   const Mailgun = require("mailgun.js");
@@ -29,7 +29,7 @@ async function sendEmail(email, message) {
   const client = mailgun.client({ username: "api", key: API_KEY });
 
   const messageData = {
-    from: "Excited User <me@samples.mailgun.org>",
+    from: "Admin <admin@samples.mailgun.org>",
     to: email,
     subject: "Secret Message",
     text: message,
