@@ -11,7 +11,6 @@ export default function handler(req, res) {
   try {
     const { message, key } = req.body;
 
-    // decrypt cipher text using DES algorithm
     const decryptedMessage = decrypt(message, key);
 
     res.status(200).json({ message: decryptedMessage });
