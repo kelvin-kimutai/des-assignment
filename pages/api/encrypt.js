@@ -62,5 +62,5 @@ export default async function handler(req, res) {
   await sendEmail(email, encryptedMessage);
   await sendSMS(mobile_number, key);
 
-  res.status(200).json({ message: encryptedMessage });
+  res.status(200).json({ message: "Message has been encrypted" });
 }

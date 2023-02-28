@@ -14,8 +14,8 @@ export default function DecryptForm() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const initialValues = {
-    message: "U2FsdGVkX18rkYuU4M1ccn19017/SaWQphHsQIhNOKg=",
-    key: "123456",
+    message: "",
+    key: "",
   };
 
   const validationSchema = Yup.object({

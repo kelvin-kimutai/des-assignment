@@ -10,10 +10,10 @@ export default function EncryptForm() {
   const toast = useToast();
 
   const initialValues = {
-    mobile_number: "254714322405",
-    email: "vortechstudio@gmail.com",
-    key: "123456",
-    message: "Hello world",
+    mobile_number: "",
+    email: "",
+    key: "",
+    message: "",
   };
 
   const validationSchema = Yup.object({
